@@ -188,7 +188,6 @@ class ARSLearner(object):
                  step_size=0.01,
                  shift='constant zero',
                  params=None,
-                 threshold=1000,
                  seed=123):
 
         logz.configure_output_dir(logdir)
@@ -209,7 +208,7 @@ class ARSLearner(object):
         self.params = params
         self.max_past_avg_reward = float('-inf')
         self.num_episodes_used = float('inf')
-        self.thresh = threshold
+
         
         # create shared table for storing noise
         print("Creating deltas table.")
@@ -418,7 +417,6 @@ def run_ars(params):
                      delta_std=params['delta_std'], 
                      logdir=logdir,
                      rollout_length=params['rollout_length'],
-                     threshold=params['threshold'],
                      shift=params['shift'],
                      params=params,
                      seed = params['seed'])
@@ -433,17 +431,21 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--env_name', type=str, default='HalfCheetah-v1')
     parser.add_argument('--n_iter', '-n', type=int, default=500)
-    parser.add_argument('--n_directions', '-nd', type=int, default=320)
-    parser.add_argument('--deltas_used', '-du', type=int, default=320)
-    parser.add_argument('--step_size', '-s', type=float, default=0.01)
-    parser.add_argument('--delta_std', '-std', type=float, default=.02)
-    parser.add_argument('--n_workers', '-e', type=int, default=32)
+    parser.add_argument('--n_directions', '-nd', type=int, default=230)
+    parser.add_argument('--deltas_used', '-du', type=int, default=230)
+    parser.add_argument('--step_size', '-s', type=float, default=0.02)
+    parser.add_argument('--delta_std', '-std', type=float, default=.0075)
+    parser.add_argument('--n_workers', '-e', type=int, default=48)
     parser.add_argument('--rollout_length', '-r', type=int, default=1000)
-    parser.add_argument('--shift', type=str, default='constant_zero')
-    parser.add_argument('--seed', type=int, default=123)
+
+    # for Swimmer-v1 and HalfCheetah-v1 use shift = 'consant_zero'
+    # for Hopper-v1, Walker2d-v1, and Ant-v1 use shift = 'constant_one'
+    parser.add_argument('--shift', type=str, default='constant_five')
+    parser.add_argument('--seed', type=int, default=9989)
     parser.add_argument('--policy_type', type=str, default='linear')
-    parser.add_argument('--threshold', '-t', type=int, default=1000)
     parser.add_argument('--dir_path', type=str, default='data')
+
+    # for ARS v1 use filter = 'NoFilter'
     parser.add_argument('--filter', type=str, default='MeanStdFilter')
 
     local_ip = socket.gethostbyname(socket.gethostname())
