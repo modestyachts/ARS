@@ -19,10 +19,10 @@ Note that to replicate results reported in "Simple random search provides a comp
 
 ## Running ARS
 
-First start ray ():
+First start ray:
 
 ```
-ray start --head --redis-port=6379
+ray start --head --redis-port=6379 --num-workers=18
 ```
 
 To train Humanoid-v1, execute the following command: 
@@ -35,7 +35,7 @@ python code/ars.py
 All arguments are optional and can be modified to train other environments:
 
 ```
-python code/ars.py --env_name env_name --n_directions n --step_size alpha --delta_std sigma --n_workers x --dir_path path_to_directory
+python code/ars.py --env_name env_name --n_directions n --step_size alpha --delta_std sigma --n_workers x --dir_path path_to_directory --shift x
 ```
 
 For example, to run HalfCheetah:
