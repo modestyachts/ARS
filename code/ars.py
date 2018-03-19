@@ -254,25 +254,15 @@ class ARSLearner(object):
         t1 = time.time()
         num_rollouts = int(num_deltas / self.num_workers)
             
-        # reward shaping (substracting survival bonus in the MuJoCo locomotion tasks)
-        if self.shift == 'constant_zero':
-            shift = 0
-        elif self.shift == 'constant_one':
-            shift = 1
-        elif self.shift == 'constant_five':
-            shift = 5
-        else:
-            raise NotImplementedError 
-
         # parallel generation of rollouts
         rollout_ids_one = [worker.do_rollouts.remote(policy_id,
                                                  num_rollouts = num_rollouts,
-                                                 shift = shift,
+                                                 shift = self.shift,
                                                  evaluate=evaluate) for worker in self.workers]
 
         rollout_ids_two = [worker.do_rollouts.remote(policy_id,
                                                  num_rollouts = 1,
-                                                 shift = shift,
+                                                 shift = self.shift,
                                                  evaluate=evaluate) for worker in self.workers[:(num_deltas % self.num_workers)]]
 
         # gather results 
@@ -440,7 +430,7 @@ if __name__ == '__main__':
 
     # for Swimmer-v1 and HalfCheetah-v1 use shift = 'consant_zero'
     # for Hopper-v1, Walker2d-v1, and Ant-v1 use shift = 'constant_one'
-    parser.add_argument('--shift', type=str, default='constant_five')
+    parser.add_argument('--shift', type=float, default=5)
     parser.add_argument('--seed', type=int, default=237)
     parser.add_argument('--policy_type', type=str, default='linear')
     parser.add_argument('--dir_path', type=str, default='data')
