@@ -7,21 +7,18 @@ ARS is a random search method for training linear policies for continuous contro
 
 ### Prerequisites
 
-OpenAI Gym, Ray and Numpy must be installed to run ARS. 
+OpenAI Gym and Ray must be installed to run ARS. 
 
 ### Installation
 
 First clone the repository:
 
 ```
-git clone https://github.com/aurelia-guy/Mujoco-Experiments.git
+git clone https://github.com/modestyachts/ARS/Mujoco-Experiments.git
 ```
 
-OpenAI Gym can be installed using pip:
-
-```
-pip install gym
-```
+To installing OpenAI Gym and MuJoCo dependencies follow the instructions here:
+https://github.com/openai/gym
 
 To install ray follow the instructions here: 
 http://ray.readthedocs.io/en/latest/installation.html#install-ray
@@ -30,6 +27,7 @@ http://ray.readthedocs.io/en/latest/installation.html#install-ray
 To install numpy see instructions here: 
 https://scipy.org/install.html
 
+To replicate results reported in "Simple random search provides a competitive approach to reinforcement learning" version 0.9.3 of OpenAI Gym and 
 ## Running ARS
 
 First start ray:
@@ -47,7 +45,7 @@ python ARS/code/ars.py --env_name env_name --n_directions n --step_size alpha --
 For example, to run HalfCheetah:
 
 ```
-python ARS/code/ars.py --env_name HalfCheetah-v1 --n_directions 8 --step_size 0.02 --delta_std 0.03 --n_workers 18 --threshold 3430
+python ARS/code/ars.py --env_name HalfCheetah-v1 --n_directions 8 --step_size 0.02 --delta_std 0.03 --n_workers 18 --shift 0
 ```
 
 
