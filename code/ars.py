@@ -429,8 +429,8 @@ def run_ars(params):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--env_name', type=str, default='HalfCheetah-v1')
-    parser.add_argument('--n_iter', '-n', type=int, default=500)
+    parser.add_argument('--env_name', type=str, default='Humanoid-v1')
+    parser.add_argument('--n_iter', '-n', type=int, default=1000)
     parser.add_argument('--n_directions', '-nd', type=int, default=230)
     parser.add_argument('--deltas_used', '-du', type=int, default=230)
     parser.add_argument('--step_size', '-s', type=float, default=0.02)
@@ -441,7 +441,7 @@ if __name__ == '__main__':
     # for Swimmer-v1 and HalfCheetah-v1 use shift = 'consant_zero'
     # for Hopper-v1, Walker2d-v1, and Ant-v1 use shift = 'constant_one'
     parser.add_argument('--shift', type=str, default='constant_five')
-    parser.add_argument('--seed', type=int, default=9989)
+    parser.add_argument('--seed', type=int, default=237)
     parser.add_argument('--policy_type', type=str, default='linear')
     parser.add_argument('--dir_path', type=str, default='data')
 
