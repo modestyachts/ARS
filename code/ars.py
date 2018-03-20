@@ -3,9 +3,6 @@ Parallel implementation of the Augmented Random Search method.
 Horia Mania --- hmania@berkeley.edu
 Aurelia Guy
 Benjamin Recht 
-
-
-
 '''
 
 import parser
@@ -19,37 +16,7 @@ import utils
 import optimizers
 from policies import *
 import socket
-
-@ray.remote
-def create_shared_noise():
-    """
-    Create a large array of noise to be shared by all workers. Used 
-    for avoiding the communication of the random perturbations delta.
-    """
-
-    seed = 12345
-    count = 250000000
-    noise = np.random.RandomState(seed).randn(count).astype(np.float64)
-    return noise
-
-
-class SharedNoiseTable(object):
-    def __init__(self, noise, seed = 11):
-
-        self.rg = np.random.RandomState(seed)
-        self.noise = noise
-        assert self.noise.dtype == np.float64
-
-    def get(self, i, dim):
-        return self.noise[i:i + dim]
-
-    def sample_index(self, dim):
-        return self.rg.randint(0, len(self.noise) - dim + 1)
-
-    def get_delta(self, dim):
-        idx = self.sample_index(dim)
-        return idx, self.get(idx, dim)
-
+from shared_noise import *
 
 @ray.remote
 class Worker(object):
@@ -419,23 +386,24 @@ def run_ars(params):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--env_name', type=str, default='Humanoid-v1')
+    parser.add_argument('--env_name', type=str, default='HalfCheetah-v1')
     parser.add_argument('--n_iter', '-n', type=int, default=1000)
-    parser.add_argument('--n_directions', '-nd', type=int, default=230)
-    parser.add_argument('--deltas_used', '-du', type=int, default=230)
+    parser.add_argument('--n_directions', '-nd', type=int, default=8)
+    parser.add_argument('--deltas_used', '-du', type=int, default=8)
     parser.add_argument('--step_size', '-s', type=float, default=0.02)
-    parser.add_argument('--delta_std', '-std', type=float, default=.0075)
-    parser.add_argument('--n_workers', '-e', type=int, default=48)
+    parser.add_argument('--delta_std', '-std', type=float, default=.03)
+    parser.add_argument('--n_workers', '-e', type=int, default=18)
     parser.add_argument('--rollout_length', '-r', type=int, default=1000)
 
-    # for Swimmer-v1 and HalfCheetah-v1 use shift = 'consant_zero'
-    # for Hopper-v1, Walker2d-v1, and Ant-v1 use shift = 'constant_one'
-    parser.add_argument('--shift', type=float, default=5)
+    # for Swimmer-v1 and HalfCheetah-v1 use shift = 0
+    # for Hopper-v1, Walker2d-v1, and Ant-v1 use shift = 1
+    # for Humanoid-v1 used shift = 5
+    parser.add_argument('--shift', type=float, default=0)
     parser.add_argument('--seed', type=int, default=237)
     parser.add_argument('--policy_type', type=str, default='linear')
     parser.add_argument('--dir_path', type=str, default='data')
 
-    # for ARS v1 use filter = 'NoFilter'
+    # for ARS V1 use filter = 'NoFilter'
     parser.add_argument('--filter', type=str, default='MeanStdFilter')
 
     local_ip = socket.gethostbyname(socket.gethostname())

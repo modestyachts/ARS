@@ -54,11 +54,11 @@ Follow the instructions here: http://ray.readthedocs.io/en/latest/using-ray-on-a
 To render a trained policy, execute the following command:
 
 ```
-python run_expert.py expert_policy_file env_name --render
+python code/run_policy.py trained_polices/env_name/policy_directory_path/policy_file_name.npz env_name --render
 ```
 
 For example, to run Humanoid with galloping gait:
 
 ```
-python run_expert.py humanoid_gates/galloping/lin_policy_plus.npz Humanoid-v1 --render 
+python code/run_policy.py trained_policies/Humanoid-v1/galloping/lin_policy_plus.npz Humanoid-v1 --render 
 ```
