@@ -54,7 +54,7 @@ Follow the instructions here: http://ray.readthedocs.io/en/latest/using-ray-on-a
 To render a trained policy, execute the following command:
 
 ```
-python code/run_policy.py trained_polices/env_name/policy_directory/lin_policy_plus.npz env_name --render
+python code/run_policy.py trained_polices/env_name/policy_directory_path/policy_file_name.npz env_name --render
 ```
 
 For example, to run Humanoid with galloping gait:
