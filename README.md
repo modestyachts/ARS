@@ -37,7 +37,7 @@ To train a policy for HalfCheetah-v1, execute the following command:
 python code/ars.py
 ```
 
-All arguments passed into ARS are optional and can be modified to train other environments or use different hyperparameters.
+All arguments passed into ARS are optional and can be modified to train other environments, use different hyperparameters, or use  different random seeds.
 For example, to train a policy for Humanoid-v1, execute the following command:
 
 ```
