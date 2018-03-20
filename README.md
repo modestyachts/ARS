@@ -2,7 +2,7 @@
 
 
 ## Getting Started
-ARS is a random search method for training linear policies for continuous control problems described in "Simple random search provides a competitive approach to reinforcement learning." It can be run on your local machine or distributed across machines such as Amazon EC2 instances. 
+ARS is a random search method for training linear policies for continuous control problems described in ["Simple random search provides a competitive approach to reinforcement learning."](https://arxiv.org/abs/1803.07055) It can be run on your local machine or distributed across machines such as Amazon EC2 instances. 
 
 
 ### Prerequisites
@@ -15,7 +15,7 @@ https://github.com/openai/gym
 To install ray follow the instructions here: 
 http://ray.readthedocs.io/en/latest/installation.html#install-ray
 
-Note that to replicate results reported in "Simple random search provides a competitive approach to reinforcement learning," OpenAI Gym version 0.9.3, mujoco-py 0.5.7, and MuJoCo Pro version 1.31 are required. 
+Note that to replicate results reported in ["Simple random search provides a competitive approach to reinforcement learning,"](https://arxiv.org/abs/1803.07055) OpenAI Gym version 0.9.3, mujoco-py 0.5.7, and MuJoCo Pro version 1.31 are required. 
 
 ## Running ARS
 
