@@ -17,13 +17,13 @@ For more information on Ray see http://ray.readthedocs.io/en/latest/.
 
 ## Running ARS
 
-First start Ray by executing the following command:
+First start Ray by executing a command of the following form:
 
 ```
 ray start --head --redis-port=6379 --num-workers=18
 ```
-This command starts multiple Python processes on one machine, for parallel computation via Ray. 
-The number of workers 18 should be replaced by the desired number of CPUs used for the parallelization. 
+This command starts multiple Python processes on one machine for parallel computations with Ray. 
+Set "num_workers=X" for parallelizing ARS across X CPUs.
 For parallelzing ARS on a cluster follow the instructions here: http://ray.readthedocs.io/en/latest/using-ray-on-a-large-cluster.html.
 
 We recommend using single threaded linear algebra computations by setting: 
@@ -37,7 +37,7 @@ To train a policy for HalfCheetah-v1, execute the following command:
 python code/ars.py
 ```
 
-All arguments passed into ARS are optional and can be modified to train other environments, or use different hyperparameters.
+All arguments passed into ARS are optional and can be modified to train other environments or use different hyperparameters.
 For example, to train a policy for Humanoid-v1, execute the following command:
 
 ```
