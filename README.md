@@ -2,62 +2,59 @@
 
 
 ## Getting Started
-ARS is a random search method for training linear policies for continuous control problems described in ["Simple random search provides a competitive approach to reinforcement learning."](https://arxiv.org/abs/1803.07055) It can be run on your local machine or distributed across machines such as Amazon EC2 instances. 
+ARS is a random search method for training linear policies for continuous control problems, based on the paper ["Simple random search provides a competitive approach to reinforcement learning."](https://arxiv.org/abs/1803.07055) 
 
+### Prerequisites for running ARS
 
-### Prerequisites
-
-The code uses Python 3, OpenAI Gym version 0.9.3, mujoco-py 0.5.7 and MuJoCo Pro version 1.31. Ray must be installed to run ARS. 
+Our ARS implementation relies on Python 3, OpenAI Gym version 0.9.3, mujoco-py 0.5.7, MuJoCo Pro version 1.31, and Ray library for parallel computing.  
 
 To installing OpenAI Gym and MuJoCo dependencies follow the instructions here:
 https://github.com/openai/gym
 
-To install ray follow the instructions here: 
-http://ray.readthedocs.io/en/latest/installation.html#install-ray
-
-Note that to replicate results reported in ["Simple random search provides a competitive approach to reinforcement learning,"](https://arxiv.org/abs/1803.07055) OpenAI Gym version 0.9.3, mujoco-py 0.5.7, and MuJoCo Pro version 1.31 are required. 
+To install Ray execute:
+``` 
+pip install ray
+```
+For more information on Ray see http://ray.readthedocs.io/en/latest/. 
 
 ## Running ARS
 
-First start ray:
+First start Ray by executing the following command:
 
 ```
 ray start --head --redis-port=6379 --num-workers=18
 ```
+This command starts multiple Python processes on one machine, for parallel computation via Ray. 
+The number of workers 18 should be replaced by the desired number of CPUs used for the parallelization. 
+For parallelzing ARS on a cluster follow the instructions here: http://ray.readthedocs.io/en/latest/using-ray-on-a-large-cluster.html.
 
-To train Humanoid-v1, execute the following command: 
+We recommend using single threaded linear algebra computations by setting: 
+```
+export MKL_NUM_THREADS=1
+```
+
+To train a policy for HalfCheetah-v1, execute the following command: 
 
 ```
 python code/ars.py
 ```
 
-
-All arguments are optional and can be modified to train other environments:
-
-```
-python code/ars.py --env_name env_name --n_directions n --step_size alpha --delta_std sigma --n_workers x --dir_path path_to_directory --shift x
-```
-
-For example, to run HalfCheetah:
+All arguments passed into ARS are optional and can be modified to train other environments, or use different hyperparameters.
+For example, to train a policy for Humanoid-v1, execute the following command:
 
 ```
-python code/ars.py --env_name HalfCheetah-v1 --n_directions 8 --step_size 0.02 --delta_std 0.03 --n_workers 18 --shift 0
+python code/ars.py --env_name Humanoid-v1 --n_directions 230 --deltas_used 230 --step_size 0.02 --delta_std 0.0075 --n_workers 48 --shift 5
 ```
-
-## Running ARS on EC2 cluster
-
-Follow the instructions here: http://ray.readthedocs.io/en/latest/using-ray-on-a-large-cluster.html
-
 
 ## Rendering Trained Policy
 
-To render a trained policy, execute the following command:
+To render a trained policy, execute a command of the following form:
 
 ```
 python code/run_policy.py trained_polices/env_name/policy_directory_path/policy_file_name.npz env_name --render
 ```
 
-For example, to run Humanoid with galloping gait:
+For example, to render Humanoid-v1 with a galloping gait execute:
 
 ```
 python code/run_policy.py trained_policies/Humanoid-v1/galloping/lin_policy_plus.npz Humanoid-v1 --render 
