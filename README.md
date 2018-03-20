@@ -1,10 +1,8 @@
 # Augmented Random Search (ARS)
 
-
-## Getting Started
 ARS is a random search method for training linear policies for continuous control problems, based on the paper ["Simple random search provides a competitive approach to reinforcement learning."](https://arxiv.org/abs/1803.07055) 
 
-### Prerequisites for running ARS
+## Prerequisites for running ARS
 
 Our ARS implementation relies on Python 3, OpenAI Gym version 0.9.3, mujoco-py 0.5.7, MuJoCo Pro version 1.31, and Ray library for parallel computing.  
 
