@@ -4,7 +4,7 @@ ARS is a random search method for training linear policies for continuous contro
 
 ## Prerequisites for running ARS
 
-Our ARS implementation relies on Python 3, OpenAI Gym version 0.9.3, mujoco-py 0.5.7, MuJoCo Pro version 1.31, and Ray library for parallel computing.  
+Our ARS implementation relies on Python 3, OpenAI Gym version 0.9.3, mujoco-py 0.5.7, MuJoCo Pro version 1.31, and the Ray library for parallel computing.  
 
 To installing OpenAI Gym and MuJoCo dependencies follow the instructions here:
 https://github.com/openai/gym
