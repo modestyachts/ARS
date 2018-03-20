@@ -1,9 +1,8 @@
 # Code in this file is copied and adapted from
 # https://github.com/ray-project/ray/tree/master/python/ray/rllib/es
 
-
 import ray
-import numpy 
+import numpy as np
 
 @ray.remote
 def create_shared_noise():
