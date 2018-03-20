@@ -2,7 +2,7 @@
 
 Code to load a policy and generate rollout data. Adapted from https://github.com/berkeleydeeprlcourse. 
 Example usage:
-    python run_policy.py Humanoid-v1/policy_reward_11600/lin_policy_plus.npz Humanoid-v1 --render \
+    python run_policy.py ../trained_policies/Humanoid-v1/policy_reward_11600/lin_policy_plus.npz Humanoid-v1 --render \
             --num_rollouts 20
 """
 import numpy as np
