@@ -55,5 +55,5 @@ python code/run_policy.py trained_polices/env_name/policy_directory_path/policy_
 For example, to render Humanoid-v1 with a galloping gait execute:
 
 ```
-python code/run_policy.py trained_policies/Humanoid-v1/galloping/lin_policy_plus.npz Humanoid-v1 --render 
+python code/run_policy.py trained_policies/Humanoid-v1/policy_reward_11600/lin_policy_plus.npz Humanoid-v1 --render 
 ```
