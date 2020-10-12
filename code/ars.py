@@ -386,7 +386,7 @@ def run_ars(params):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--env_name', type=str, default='HalfCheetah-v1')
+    parser.add_argument('--env_name', type=str, default='HalfCheetah-v2')
     parser.add_argument('--n_iter', '-n', type=int, default=1000)
     parser.add_argument('--n_directions', '-nd', type=int, default=8)
     parser.add_argument('--deltas_used', '-du', type=int, default=8)
@@ -407,7 +407,7 @@ if __name__ == '__main__':
     parser.add_argument('--filter', type=str, default='MeanStdFilter')
 
     local_ip = socket.gethostbyname(socket.gethostname())
-    ray.init(redis_address= local_ip + ':6379')
+    ray.init(address= 'auto')
     
     args = parser.parse_args()
     params = vars(args)
