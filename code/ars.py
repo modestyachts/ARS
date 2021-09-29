@@ -99,7 +99,7 @@ class Worker(object):
 
                 # for evaluation we do not shift the rewards (shift = 0) and we use the
                 # default rollout length (1000 for the MuJoCo locomotion tasks)
-                reward, r_steps = self.rollout(shift = 0., rollout_length = self.env.spec.timestep_limit)
+                reward, r_steps = self.rollout(shift = 0., rollout_length = self.env.spec.max_episode_steps)
                 rollout_rewards.append(reward)
                 
             else:
