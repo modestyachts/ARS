@@ -20,10 +20,10 @@ For more information on Ray see http://ray.readthedocs.io/en/latest/.
 First start Ray by executing a command of the following form:
 
 ```
-ray start --head --redis-port=6379 --num-workers=18
+ray start --head 
 ```
 This command starts multiple Python processes on one machine for parallel computations with Ray. 
-Set "num_workers=X" for parallelizing ARS across X CPUs.
+Set "--num_cpus=X" for parallelizing ARS across X CPUs.
 For parallelzing ARS on a cluster follow the instructions here: http://ray.readthedocs.io/en/latest/using-ray-on-a-large-cluster.html.
 
 We recommend using single threaded linear algebra computations by setting: 
